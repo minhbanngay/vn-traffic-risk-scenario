@@ -1,0 +1,90 @@
+scenario:
+  scenario_id: INT_MOTO_001
+  episode_id: INT_MOTO_001_V007
+  interaction_type: interactive
+  subtype: motorcycle_cut_in
+  variant: risk
+  random_seed: 42
+carla:
+  host: 127.0.0.1
+  port: 2000
+  timeout_seconds: 10.0
+  map: Town10HD_Opt
+  synchronous_mode: true
+  fixed_delta_seconds: 0.05
+  no_rendering_mode: false
+environment:
+  weather: ClearNoon
+  road_topology: straight_road
+  traffic_density: low
+  vehicle_mix: motorcycle_dominant
+placement:
+  mode: automatic_adjacent_lanes
+  lane_change_side: left
+  waypoint_spacing_m: 2.0
+  ego_distance_to_merge_m: 38.0
+  actor_start_behind_ego_m: 8.0
+  merge_length_m: 14.0
+  distance_after_merge_m: 45.0
+  post_merge_recording_seconds: 3.0
+  spawn_z_offset_m: 0.25
+  candidate_index: 0
+ego_vehicle:
+  blueprint: vehicle.tesla.model3
+  role_name: ego
+  initial_speed_kmh: 25.0
+  target_speed_kmh: 25.0
+  reaction: brake_on_risk
+  reaction_delay_seconds: 0.5
+  risk_slowdown_speed_kmh: 12.5
+  risk_max_brake: 0.15
+  risk_slowdown_hold_seconds: 0.75
+  risk_slowdown_max_seconds: 3.0
+risk_actor:
+  blueprint_candidates:
+  - vehicle.yamaha.yzf
+  - vehicle.kawasaki.ninja
+  - vehicle.harley-davidson.low_rider
+  role_name: risk_actor
+  initial_speed_kmh: 38.0
+  target_speed_kmh: 38.0
+  min_speed_kmh: 20.0
+  max_speed_kmh: 45.0
+variant_profiles:
+  safe:
+    target_time_offset_seconds: -2.0
+    interaction_type: interactive
+    ego_reaction: none
+  risk:
+    target_time_offset_seconds: -1.0
+    interaction_type: interactive
+    ego_reaction: brake_on_risk
+  collision:
+    target_time_offset_seconds: 0.0
+    interaction_type: collision
+    ego_reaction: none
+risk_labelling:
+  horizon: 8
+  horizon_step_seconds: 0.5
+  eta_difference_threshold_seconds: 1.0
+  min_distance_threshold_m: 5.0
+  closest_approach_threshold_m: 2.5
+  max_prediction_seconds: 5.0
+  relevant_distance_to_merge_m: 45.0
+recording:
+  output_root: outputs
+  save_rgb: true
+  image_format: jpeg
+  jpeg_quality: 85
+  image_width: 1280
+  image_height: 720
+  camera_fov: 90.0
+  camera_x_bound_factor: 0.35
+  camera_z_bound_factor: 1.15
+  camera_pitch_degrees: -5.0
+  camera_tick_seconds: 0.05
+  image_timeout_seconds: 2.0
+  max_episode_seconds: 25.0
+  save_2d_boxes: true
+runtime:
+  target_time_offset_seconds: -1.0

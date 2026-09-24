@@ -1,0 +1,23 @@
+{
+  "scenario_id": "INT_MOTO_001",
+  "episode_id": "INT_MOTO_001_V007",
+  "variant": "risk",
+  "interaction_type": "interactive",
+  "frame_count": 176,
+  "risk_intervals": [
+    {
+      "risk_start": 102451,
+      "risk_end": 102470
+    }
+  ],
+  "collision_events": [],
+  "layout": {
+    "road_id": 1,
+    "ego_lane_id": 2,
+    "actor_lane_id": 1,
+    "merge_s": 2.000000000000002,
+    "candidate_count": 64,
+    "candidate_index": 0,
+    "actor_start_behind_ego_m": 8.0
+  }
+}
