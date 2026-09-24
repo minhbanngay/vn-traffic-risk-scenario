@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: vn-traffic-risk-scenario
+Version: 0.1.0
+Summary: Deterministic CARLA scenario generation and risk-tube labelling for VN-Traffic Risk.
+Requires-Python: >=3.9
+Requires-Dist: numpy>=1.23
+Requires-Dist: Pillow>=9.0
+Requires-Dist: PyYAML>=6.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4; extra == "dev"
+Provides-Extra: video
+Requires-Dist: imageio-ffmpeg>=0.5; extra == "video"

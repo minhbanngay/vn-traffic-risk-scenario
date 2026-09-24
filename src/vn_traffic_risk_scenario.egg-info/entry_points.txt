@@ -1,0 +1,3 @@
+[console_scripts]
+vn-risk-run = vn_traffic_risk.cli:main
+vn-risk-video = vn_traffic_risk.video:main
