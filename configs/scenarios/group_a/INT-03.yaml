@@ -1,0 +1,36 @@
+defaults: ../../defaults/base.yaml
+scenario:
+  scenario_id: INT-03
+  name: Parallel motorcycle lateral squeeze
+  group: group_a
+  config_revision: 1
+  random_seed: 42
+carla:
+  managed_server: true
+risk_actor:
+  initial_speed_kmh: 25.0
+placement:
+  site_file: configs/sites/Town10HD_Opt/wave_2_straight.yaml
+  actor_start_behind_ego_m: 1.0
+  route_spacing_m: 1.0
+  minimum_route_length_m: 130.0
+  maneuver_zone_length_m: 80.0
+  maximum_yaw_change_degrees: 8.0
+  spawn_z_offset_m: 0.25
+behavior:
+  decision_after_seconds: 2.0
+  transition_length_m: 12.0
+  risk_lateral_clearance_m: 0.30
+  completion_lateral_tolerance_m: 0.20
+  hold_seconds: 1.0
+  cf_observation_seconds: 5.0
+risk_labelling:
+  lateral_clearance_m: 0.60
+acceptance:
+  risk_lateral_clearance_m: 0.60
+  cf_lateral_clearance_m: 1.0
+interventions:
+  R:
+    mode: squeeze_laterally
+  CF:
+    mode: maintain_lateral_clearance

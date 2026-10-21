@@ -17,10 +17,11 @@ def test_variant_override_is_resolved() -> None:
     assert config.data["ego_vehicle"]["reaction"] == "none"
 
 
-def test_output_path_contains_scenario_episode_and_variant() -> None:
-    config = load_config(CONFIG, "risk")
-    path = config.output_directory.as_posix()
-    assert path.endswith("outputs/INT_MOTO_001/INT_MOTO_001_V008/risk")
+def test_output_path_contains_scenario_episode_and_variant(tmp_path: Path) -> None:
+    from vn_traffic_risk.config import ResolvedConfig
+    config = ResolvedConfig({"scenario": {"scenario_id": "fixture", "episode_id": "episode", "variant": "risk"},
+                             "recording": {"output_root": str(tmp_path)}}, tmp_path/"config.yaml")
+    assert config.output_directory == tmp_path/"fixture"/"episode"/"risk"
 
 
 def test_recording_uses_compressed_jpeg() -> None:

@@ -1,0 +1,27 @@
+defaults: ../../defaults/base.yaml
+scenario:
+  scenario_id: INT-01
+  name: Abrupt motorcycle cut-in
+  group: group_a
+  config_revision: 2
+  random_seed: 42
+placement:
+  site_file: configs/sites/Town10HD_Opt/int_01.yaml
+  actor_start_behind_ego_m: 8.0
+  route_spacing_m: 1.0
+  minimum_route_length_m: 130.0
+  maneuver_zone_length_m: 80.0
+  maximum_yaw_change_degrees: 8.0
+  spawn_z_offset_m: 0.25
+behavior:
+  decision_lead_m: 2.5
+  merge_length_m: 14.0
+  completion_lateral_tolerance_m: 0.35
+  cf_yield_speed_kmh: 10.0
+  cf_merge_speed_kmh: 18.0
+  cf_safe_headway_seconds: 2.4
+interventions:
+  R:
+    mode: cut_in_ahead
+  CF:
+    mode: yield_then_merge_behind

@@ -1,0 +1,12 @@
+schema_version: 2
+map: Town10HD_Opt
+status: live_validated_int_01_pilot
+validation:
+  batch_id: int_01_pilot_guarded_v1
+  report: docs/pilot-INT-01.md
+  map_fingerprint: 5d883b799f634030af92be1e9d79d107845540ba04338e8c60e095be1aef7be7
+  maneuver_zone_m: 80.0
+  total_route_m: 130.0
+selection:
+  mode: straight_adjacent_lanes
+  candidate_index: 0

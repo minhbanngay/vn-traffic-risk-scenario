@@ -1,0 +1,7 @@
+schema_version: 2
+map: Town10HD_Opt
+status: pending_wave_2_physical_preflight
+notes: Reuses the INT-01 search region; each new scenario must pass its own rehearsal.
+selection:
+  mode: straight_adjacent_lanes
+  candidate_index: 0

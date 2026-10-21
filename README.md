@@ -1,5 +1,45 @@
 # VN-Traffic Risk — CARLA Scenario Starter
 
+## Bộ tình huống R–CF (schema 2)
+
+Danh mục 20 tình huống lấy từ Excel nằm trong `configs/catalog.yaml`. INT-01 là implementation đầu tiên; chỉ output có `validation.json: passed=true` mới được tính là đạt. Tài liệu: [kiến trúc](docs/architecture.md), [đặc tả INT-01](docs/scenarios/group_a/INT-01.md), [lộ trình](docs/roadmap.md), [baseline](docs/baseline.md).
+
+Mốc INT-01 đã đạt: 10/10 cặp CARLA, ba baseline có event spread 0 s, audit đủ 24 video / 6.425 ảnh, 76 test tại mốc nghiệm thu. Xem [báo cáo pilot và danh sách video](docs/pilot-INT-01.md), [kiến trúc/module](docs/architecture.md) và [lịch sử sự cố](docs/runtime-incident.md). Ngày 21/10, bổ sung INT-03/05/08 với behavior/evaluator riêng và pilot nhỏ; xem [đợt 2 và kết quả kiểm chứng](docs/wave-2.md). Các ID khác vẫn planned; không đổi dữ liệu legacy.
+
+Chạy trong môi trường đã cài package (`pip install -e ".[dev,video]"`) và CARLA server riêng, không có traffic do script khác tạo:
+
+```powershell
+python -m vn_traffic_risk catalog
+python -m vn_traffic_risk validate --config configs/scenarios/group_a/INT-01.yaml
+python -m vn_traffic_risk run-batch --config configs/batches/int_01_pilot.yaml --dry-run
+python -m vn_traffic_risk inspect-site --config configs/scenarios/group_a/INT-01.yaml --output outputs/v2/sites/site.json
+python -m vn_traffic_risk run-pair --config configs/scenarios/group_a/INT-01.yaml
+python -m vn_traffic_risk run-batch --config configs/batches/int_01_pilot.yaml
+python -m vn_traffic_risk run-batch --config configs/batches/int_01_pilot_managed.yaml
+python -m vn_traffic_risk run-batch --config configs/batches/int_01_pilot_managed.yaml --max-new-attempts 1
+python -m vn_traffic_risk evaluate outputs/v2/INT-01/PAIR_ID/ATTEMPT_ID
+```
+
+Lệnh `run-batch` tiếp tục manifest hiện có, kiểm tra lại cặp đạt và chạy phần còn thiếu. Thay đổi cấu hình phải dùng batch_id mới; mọi calibration/repeat là attempt riêng. Mỗi branch chạy trong process riêng để cách ly lỗi native CARLA Python API. `outputs/v2/.../review.html` trình bày video và biểu đồ hai nhánh. Dataset lớn, video, RGB và cache không commit vào Git; bản Excel nguồn nhỏ được lưu kèm checksum trong docs/sources.
+
+Các mục bên dưới mô tả đường chạy legacy; lệnh `--variant safe/risk/collision` vẫn hoạt động và không được dùng thay cho cặp R–CF.
+
+### Môi trường SDK đi kèm bản CARLA hiện tại
+
+Wheel trong `../carla/dist` của workspace này là `cp312`; dùng Python 3.12 để cài đúng binary đi kèm server. Môi trường cục bộ không thay thế môi trường Python 3.10 dùng cho các thử nghiệm cũ:
+
+```powershell
+conda create --prefix .venv-carla312 python=3.12 pip setuptools wheel -y
+conda activate ./.venv-carla312
+python -m pip install --no-build-isolation -e ".[dev,video]" numpy==1.26.4 ../carla/dist/carla-0.9.16-cp312-cp312-win_amd64.whl
+python -m pytest -q
+python -m vn_traffic_risk run-batch --config configs/batches/int_01_pilot_managed.yaml
+```
+
+Giữ môi trường đã activate khi chạy để worker thừa hưởng đúng PATH/DLL. Manifest ghi phiên bản Python, dependencies và hash binary CARLA; thay SDK hoặc implementation phải tạo cohort có batch ID mới. Tiến độ nghiệm thu thực tế nằm trong [implementation-status](docs/implementation-status.md); test tự động không thay thế nghiệm thu CARLA/video.
+
+`int_01_pilot_managed.yaml` tự khởi động và dừng server riêng lần lượt cho planner, R và CF; hai nhánh replay cùng frozen layout/config. Cần để cổng 2000 trống. Trên Windows có thể dùng `scripts/run_pilot.ps1 -PythonExe <python.exe> -BatchConfig configs/batches/int_01_pilot_managed.yaml` để chạy nền với stdout/stderr log riêng. Chỉ dùng `-StartCarla` với batch external; batch managed tự quản lý server. Trong phiên terminal được quản lý, ưu tiên lệnh trực tiếp và giữ phiên mở đến khi batch kết thúc.
+
 Project thử nghiệm end-to-end cho một basic scenario:
 
 > Ego chạy thẳng, motorcycle chạy ở lane kế bên rồi cut-in vào trước ego.

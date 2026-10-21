@@ -27,6 +27,8 @@ class ActorState:
     road_id: int | None
     lane_id: int | None
     bbox_extent: Vec3
+    bbox_offset: Vec3 = Vec3(0.0, 0.0, 0.0)
+    bbox_rotation: Vec3 = Vec3(0.0, 0.0, 0.0)
 
     def as_dict(self) -> dict[str, Any]:
         return asdict(self)

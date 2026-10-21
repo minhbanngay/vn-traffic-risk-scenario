@@ -1,0 +1,63 @@
+schema_version: 2
+carla:
+  host: 127.0.0.1
+  port: 2000
+  timeout_seconds: 120.0
+  map: Town10HD_Opt
+  synchronous_mode: true
+  fixed_delta_seconds: 0.05
+  no_rendering_mode: false
+  server_max_fps: 20.0
+  health_monitor:
+    enabled: true
+    interval_seconds: 5.0
+    max_gpu_temperature_c: 82.0
+    max_vram_fraction: 0.97
+    max_probe_errors: 3
+environment:
+  weather: ClearNoon
+ego_vehicle:
+  blueprint: vehicle.tesla.model3
+  initial_speed_kmh: 25.0
+  target_speed_kmh: 25.0
+  reaction_delay_seconds: 0.5
+  risk_slowdown_speed_kmh: 12.5
+  risk_max_brake: 0.15
+  risk_slowdown_hold_seconds: 0.75
+  risk_slowdown_max_seconds: 3.0
+risk_actor:
+  blueprint_candidates: [vehicle.yamaha.yzf, vehicle.kawasaki.ninja]
+  initial_speed_kmh: 38.0
+recording:
+  output_root: outputs/v2
+  save_rgb: true
+  image_format: jpeg
+  jpeg_quality: 85
+  image_width: 1280
+  image_height: 720
+  camera_fov: 90.0
+  camera_x_bound_factor: 0.35
+  camera_z_bound_factor: 1.15
+  camera_pitch_degrees: -5.0
+  camera_tick_seconds: 0.05
+  image_timeout_seconds: 3.0
+  max_episode_seconds: 25.0
+  post_maneuver_seconds: 4.0
+  warmup_frames: 40
+  sensor_drain_seconds: 0.25
+  create_video: true
+risk_labelling:
+  horizon: 8
+  horizon_step_seconds: 0.5
+  unsafe_headway_seconds: 1.5
+  prediction_seconds: 1.5
+acceptance:
+  version: 1
+  prefix_position_tolerance_m: 0.10
+  prefix_velocity_tolerance_mps: 0.10
+  risk_headway_seconds: 1.0
+  risk_duration_seconds: 0.15
+  ego_speed_drop_kmh: 3.0
+  ego_speed_drop_window_seconds: 2.0
+  cf_headway_seconds: 2.0
+  repeat_event_tolerance_seconds: 0.15

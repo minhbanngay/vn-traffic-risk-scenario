@@ -1,0 +1,31 @@
+defaults: ../../defaults/base.yaml
+scenario:
+  scenario_id: INT-05
+  name: Unsafe motorcycle overtaking reentry
+  group: group_a
+  config_revision: 3
+  random_seed: 42
+carla:
+  managed_server: true
+risk_actor:
+  initial_speed_kmh: 45.0
+placement:
+  site_file: configs/sites/Town10HD_Opt/wave_2_straight.yaml
+  actor_start_behind_ego_m: 8.0
+  route_spacing_m: 1.0
+  minimum_route_length_m: 130.0
+  maneuver_zone_length_m: 80.0
+  maximum_yaw_change_degrees: 8.0
+  spawn_z_offset_m: 0.25
+behavior:
+  decision_lead_m: 3.5
+  merge_length_m: 14.0
+  merge_speed_kmh: 38.0
+  completion_lateral_tolerance_m: 0.35
+  completion_heading_tolerance_degrees: 2.0
+  cf_safe_headway_seconds: 2.1
+interventions:
+  R:
+    mode: reenter_too_close
+  CF:
+    mode: overtake_then_reenter_safely

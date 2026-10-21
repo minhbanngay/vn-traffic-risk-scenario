@@ -1,0 +1,52 @@
+defaults: ../../defaults/base.yaml
+scenario:
+  scenario_id: INT-08
+  name: Sudden lead motorcycle braking
+  group: group_b
+  config_revision: 2
+  random_seed: 42
+carla:
+  managed_server: true
+risk_actor:
+  initial_speed_kmh: 25.0
+  controller_gains:
+    speed_kp: 0.55
+    speed_ki: 0.08
+    heading_kp: 1.35
+    heading_kd: 0.10
+placement:
+  site_file: configs/sites/Town10HD_Opt/wave_2_straight.yaml
+  actor_start_ahead_ego_m: 24.0
+  site_search_rear_clearance_m: 8.0
+  route_spacing_m: 1.0
+  minimum_route_length_m: 130.0
+  maneuver_zone_length_m: 80.0
+  maximum_yaw_change_degrees: 8.0
+  spawn_z_offset_m: 0.25
+behavior:
+  decision_after_seconds: 2.0
+  completion_lateral_tolerance_m: 0.35
+  speed_tolerance_mps: 0.35
+  risk_brake_delay_seconds: 2.0
+  risk_deceleration_mps2: 3.5
+  cf_deceleration_mps2: 0.7
+  risk_target_speed_kmh: 8.0
+  cf_target_speed_kmh: 18.0
+  risk_hold_seconds: 1.0
+  cf_hold_seconds: 0.0
+  recovery_acceleration_mps2: 1.5
+  risk_max_brake: 0.55
+  cf_max_brake: 0.12
+risk_labelling:
+  closing_ttc_seconds: 3.0
+acceptance:
+  risk_ttc_seconds: 3.0
+  risk_min_deceleration_mps2: 2.0
+  cf_max_deceleration_mps2: 1.5
+  cf_min_speed_drop_kmh: 3.0
+  cf_headway_seconds: 1.8
+interventions:
+  R:
+    mode: delayed_hard_brake
+  CF:
+    mode: early_gradual_brake

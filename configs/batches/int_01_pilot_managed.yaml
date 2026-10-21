@@ -1,0 +1,13 @@
+schema_version: 2
+scenario_config: ../scenarios/group_a/INT-01.yaml
+batch_id: int_01_pilot_guarded_v1
+managed_server: true
+matrix:
+  risk_actor.initial_speed_kmh: [36.0, 38.0]
+  placement.actor_start_behind_ego_m: [6.0, 7.0, 8.0, 9.0, 10.0]
+baseline:
+  risk_actor.initial_speed_kmh: 38.0
+  placement.actor_start_behind_ego_m: 8.0
+baseline_runs: 3
+calibration:
+  decision_lead_m: [2.5, 3.5, 4.5]

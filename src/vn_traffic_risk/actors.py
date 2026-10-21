@@ -85,6 +85,8 @@ def actor_state(actor: Any, road_map: Any, role_name: str) -> ActorState:
         road_id=int(waypoint.road_id) if waypoint else None,
         lane_id=int(waypoint.lane_id) if waypoint else None,
         bbox_extent=_vec3(bbox),
+        bbox_offset=_vec3(actor.bounding_box.location),
+        bbox_rotation=Vec3(float(actor.bounding_box.rotation.roll), float(actor.bounding_box.rotation.pitch), float(actor.bounding_box.rotation.yaw)),
     )
 
 

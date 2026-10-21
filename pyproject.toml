@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vn-traffic-risk-scenario"
-version = "0.1.0"
+version = "0.2.0"
 description = "Deterministic CARLA scenario generation and risk-tube labelling for VN-Traffic Risk."
 requires-python = ">=3.9"
 dependencies = [

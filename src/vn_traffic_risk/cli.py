@@ -28,6 +28,13 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    if len(sys.argv) > 1 and sys.argv[1] in {"catalog", "validate", "inspect-site", "run-pair", "run-batch", "evaluate"}:
+        from .core.cli import main as paired_main
+        try:
+            return paired_main(sys.argv[1:])
+        except (ConfigError, CarlaUnavailableError, RuntimeError, ValueError, OSError) as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 2
     args = build_parser().parse_args()
     try:
         config = load_config(args.config, args.variant)

@@ -27,11 +27,10 @@ class WorldManager:
     world: Any = None
     original_settings: Any = None
 
-    def connect(self) -> Any:
+    def connect(self, client: Any = None) -> Any:
         carla = require_carla()
-        self.client = carla.Client(
-            str(self.config["host"]),
-            int(self.config["port"]),
+        self.client = client if client is not None else carla.Client(
+            str(self.config["host"]), int(self.config["port"])
         )
         self.client.set_timeout(float(self.config["timeout_seconds"]))
         requested_map = str(self.config["map"])

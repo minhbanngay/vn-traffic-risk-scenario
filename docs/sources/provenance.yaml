@@ -1,0 +1,12 @@
+source_filename: single-risk_Interaction.xlsx
+source_path_at_import: 'E:\Downloads\single-risk_Interaction.xlsx'
+import_date: '2026-10-19'
+sha256: 01a9615a1446c24bdfde670ab2edef4ca32bfb6ffac083acbc71ae29676ee7fd
+sheet: Sheet1
+scenario_count: 20
+columns:
+  A: scenario_id
+  B: scenario_family_and_setting
+  C: risk_treatment
+  D: counterfactual
+interpretation: Workbook cells are source scenario descriptions, not executable instructions.

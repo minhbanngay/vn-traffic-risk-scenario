@@ -1,0 +1,150 @@
+schema_version: 2
+source: docs/sources/single-risk_Interaction.xlsx
+scenarios:
+  - id: INT-01
+    group: group_a
+    name: "Abrupt motorcycle cut-in — straight road"
+    risk: "Motorcycle enters ego's lane directly ahead with insufficient gap"
+    counterfactual: "Same motorcycle waits until a safe gap exists before entering"
+    wave: 1
+    status: pilot_validated
+    validation_batch: int_01_pilot_guarded_v1
+    report: docs/pilot-INT-01.md
+  - id: INT-02
+    group: group_a
+    name: "Queue filtering and reentry — congested road or signal approach"
+    risk: "Motorcycle filters between slow vehicles and enters ego's forward corridor at a critical gap"
+    counterfactual: "Motorcycle remains in its filtering corridor or reenters later"
+    wave: 3
+    status: planned
+  - id: INT-03
+    group: group_a
+    name: "Lateral squeeze / lane sharing — motorcycle-heavy straight road"
+    risk: "Parallel motorcycle drifts into ego's lateral clearance, forcing ego to adjust"
+    counterfactual: "Motorcycle maintains sufficient lateral separation"
+    wave: 2
+    status: sample_validated
+    config: configs/scenarios/group_a/INT-03.yaml
+    sample: outputs/v2/INT-03/P-1d4f5231dfef/A000001
+    report: docs/wave-2.md
+  - id: INT-04
+    group: group_a
+    name: "Evasive motorcycle swerve — mixed-traffic arterial"
+    risk: "Motorcycle swerves around a slower moving vehicle into ego's path"
+    counterfactual: "Motorcycle slows behind that vehicle instead of swerving"
+    wave: 3
+    status: planned
+  - id: INT-05
+    group: group_a
+    name: "Unsafe overtaking reentry — straight road"
+    risk: "Motorcycle overtakes ego and returns ahead too closely"
+    counterfactual: "Same overtaking maneuver, but reentry waits for adequate separation"
+    wave: 2
+    status: implemented_pending_validation
+    config: configs/scenarios/group_a/INT-05.yaml
+  - id: INT-06
+    group: group_b
+    name: "Forced car merge at lane drop — lane reduction"
+    risk: "Car attempts to merge ahead of ego with inadequate longitudinal clearance"
+    counterfactual: "Car yields and merges after ego passes"
+    wave: 3
+    status: planned
+  - id: INT-07
+    group: group_b
+    name: "Bus pulling out from stop — urban street"
+    risk: "Previously stopped bus moves into ego's lane at a conflicting moment"
+    counterfactual: "Bus waits until the intended travel corridor is clear"
+    wave: 3
+    status: planned
+  - id: INT-08
+    group: group_b
+    name: "Sudden braking by lead motorcycle — straight road"
+    risk: "Motorcycle brakes abruptly while ego follows, producing a critical closing conflict"
+    counterfactual: "Motorcycle decelerates earlier and more gradually"
+    wave: 2
+    status: implemented_pending_validation
+    config: configs/scenarios/group_b/INT-08.yaml
+  - id: INT-09
+    group: group_b
+    name: "Pedestrian entering ego's path — midblock crossing"
+    risk: "Pedestrian begins crossing at a conflicting time relative to ego"
+    counterfactual: "Same pedestrian waits before crossing"
+    wave: 4
+    status: planned
+  - id: INT-10
+    group: group_b
+    name: "Cyclist diagonal lane crossing — approaching a junction"
+    risk: "Cyclist moves diagonally across ego's intended path to prepare for a turn"
+    counterfactual: "Cyclist waits for a safe gap before crossing"
+    wave: 4
+    status: planned
+  - id: INT-11
+    group: group_c
+    name: "Unprotected motorcycle left turn — four-way intersection"
+    risk: "Oncoming motorcycle turns left across ego's straight trajectory at an unsafe gap"
+    counterfactual: "Motorcycle waits for ego to pass before turning"
+    wave: 5
+    status: planned
+  - id: INT-12
+    group: group_c
+    name: "Unsafe right turn into traffic — T-junction"
+    risk: "Car from a side road turns into ego's lane with inadequate entry gap"
+    counterfactual: "Car yields until sufficient separation exists"
+    wave: 5
+    status: planned
+  - id: INT-13
+    group: group_c
+    name: "Perpendicular motorcycle crossing — unsignalized intersection"
+    risk: "Motorcycle crosses ego's priority corridor without sufficient clearance"
+    counterfactual: "Motorcycle stops or yields before crossing"
+    wave: 5
+    status: planned
+  - id: INT-14
+    group: group_c
+    name: "Motorcycle alley emergence — alley-to-main-road junction"
+    risk: "Motorcycle turns out from a narrow side street into ego's path"
+    counterfactual: "Motorcycle waits at the entry until the road is clear"
+    wave: 5
+    status: planned
+  - id: INT-15
+    group: group_c
+    name: "Wide-turn bus encroachment — urban junction"
+    risk: "Turning bus occupies part of ego's intended corridor, requiring ego adaptation"
+    counterfactual: "Bus waits for clearance or follows a validated non-conflicting path"
+    wave: 5
+    status: planned
+  - id: INT-16
+    group: group_c
+    name: "Group motorcycle crossing conflict — mixed-traffic intersection"
+    risk: "A group of motorcycles begins crossing, and a designated primary actor creates a conflict with ego"
+    counterfactual: "The designated actor or group yields under an explicitly defined coordinated intervention"
+    wave: 6
+    status: planned
+  - id: INT-17
+    group: group_c
+    name: "Late motorcycle entry at signal change — signalized intersection"
+    risk: "Motorcycle enters the conflict zone after its permitted phase ends, conflicting with ego's movement"
+    counterfactual: "Motorcycle obeys the relevant stop/yield condition"
+    wave: 6
+    status: planned
+  - id: INT-18
+    group: group_d
+    name: "Unsafe motorcycle roundabout entry — roundabout"
+    risk: "Entering motorcycle accepts too small a gap ahead of circulating ego"
+    counterfactual: "Motorcycle yields and enters after ego passes"
+    wave: 7
+    status: planned
+  - id: INT-19
+    group: group_d
+    name: "Roundabout exit-path weaving — roundabout"
+    risk: "Circulating motorcycle cuts across ego's planned exit path"
+    counterfactual: "Motorcycle maintains a non-conflicting path or delays its exit"
+    wave: 7
+    status: planned
+  - id: INT-20
+    group: group_d
+    name: "Wrong-way motorcycle encounter — undivided road"
+    risk: "Motorcycle chooses a wrong-way movement that creates a direct opposing conflict with ego"
+    counterfactual: "At the same decision point, motorcycle takes the permitted direction"
+    wave: 7
+    status: planned
